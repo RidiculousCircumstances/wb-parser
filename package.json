@@ -1,0 +1,36 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "simple parser",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc && nodemon",
+    "lint": "eslint ./src/**",
+    "lint:fix": "eslint ./src/** --fix"
+  },
+  "keywords": [
+    "scap",
+    "for",
+    "web-sites"
+  ],
+  "author": "Ivan Kozlov",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "inversify": "^6.0.1",
+    "puppeteer": "^15.3.2",
+    "reflect-metadata": "^0.1.13"
+  }
+}

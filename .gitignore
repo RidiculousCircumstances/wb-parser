@@ -1,0 +1,8 @@
+/node_modules
+/dist
+/output
+/.vscode
+/.eslintrc
+/.prettierrc
+/nodemon.json
+*helpers
