@@ -1,5 +1,5 @@
 import { IProductItem } from './productItem.interface';
 
-export interface IParser {
+export interface IProductItemsService {
 	getDataFromDetailPage: () => Promise<IProductItem[]>;
 }

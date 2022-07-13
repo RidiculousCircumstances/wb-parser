@@ -1,32 +1,26 @@
 import { promises } from 'fs';
 import { join } from 'path';
-import puppeteer, { Puppeteer, PuppeteerNode } from 'puppeteer';
 import config from 'config';
-import { ProductParser } from './productParser';
-import { ProductPoolEntity } from './productPool.entity';
+import { ProductItemsService } from './productPool/productItems.service';
+import { ProductItemsEntity } from './productPool/productItems.entity';
+import { LoggerService } from './logger/logger.service';
+import { LinksParserService } from './productPool/linksParser.service';
+import { DataParserService } from './productPool/dataParser.service';
 
 const partPath = join(__dirname, '..', './output', 'part.csv');
-//Проблемы - необходима инъекция аргументов централизованно, сверху вниз: параметры для puppeteer, селекторы для
-//квери селектора.
-//document.querySelector('.basket-page .accordion__list .list-item__count .count__left').textContent
 
 async function bootstrap(): Promise<void> {
-	const parser = new ProductParser(config.get('baseUrl'), 100);
-
-	const entity = new ProductPoolEntity();
-
+	const parser = new ProductItemsService(
+		new LoggerService(),
+		new LinksParserService(2, config.get('baseUrl')),
+		new DataParserService(),
+	);
+	const productItemsEntity = new ProductItemsEntity();
 	await parser.init();
-
 	const data = await parser.getDataFromDetailPage();
-
-	entity.addItem(data);
-
-	const csv = entity.getData();
-
-	//console.log(data);
-	await promises.writeFile(partPath, csv);
+	productItemsEntity.addItem(data);
+	const output = productItemsEntity.getData();
+	await promises.writeFile(partPath, output);
 }
-
-const a = new PuppeteerNode();
 
 bootstrap();

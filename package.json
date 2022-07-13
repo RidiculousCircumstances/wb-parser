@@ -17,6 +17,7 @@
   "author": "Ivan Kozlov",
   "license": "ISC",
   "devDependencies": {
+    "@types/cli-progress": "^3.11.0",
     "@types/config": "^0.0.41",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
@@ -31,9 +32,11 @@
   "dependencies": {
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
+    "cli-progress": "^3.11.2",
     "config": "^3.3.7",
     "inversify": "^6.0.1",
     "puppeteer": "^15.3.2",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "tslog": "^3.3.3"
   }
 }

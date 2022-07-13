@@ -1,13 +1,12 @@
 import { IProductItem } from './interfaces/productItem.interface';
-import { IProductPool } from './interfaces/productPool.interface';
 
-export class ProductPoolEntity implements IProductPool {
-	brandName: string[] = [];
-	productName: string[] = [];
-	article: number[] = [];
-	ordersCount: number[] = [];
-	reviewCount: number[] = [];
-	price: number[] = [];
+export class ProductItemsEntity {
+	private brandName: string[] = [];
+	private productName: string[] = [];
+	private article: number[] = [];
+	private ordersCount: number[] = [];
+	private reviewCount: number[] = [];
+	private price: number[] = [];
 
 	public addItem(items: IProductItem[]): void {
 		for (const i of items) {
