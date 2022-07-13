@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc && nodemon",
+    "test": "tsc && ts-node --files ./src/test.ts",
     "lint": "eslint ./src/**",
     "lint:fix": "eslint ./src/** --fix"
   },
@@ -16,6 +17,7 @@
   "author": "Ivan Kozlov",
   "license": "ISC",
   "devDependencies": {
+    "@types/config": "^0.0.41",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
     "eslint": "^8.19.0",
@@ -29,6 +31,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
+    "config": "^3.3.7",
     "inversify": "^6.0.1",
     "puppeteer": "^15.3.2",
     "reflect-metadata": "^0.1.13"
