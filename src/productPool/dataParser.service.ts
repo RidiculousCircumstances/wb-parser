@@ -9,11 +9,21 @@ export class DataParserService implements IDataParserService {
 			.querySelector('.product-page .product-page__header')
 			?.querySelector('span')
 			?.textContent?.replace(/,/g, ' ') as string;
+		if (!productItem.brandName) {
+			throw new Error(
+				`[DataParserService] Данные на странице не найдены. Некорректный селектор brandName`,
+			);
+		}
 
 		productItem.productName = document
 			.querySelector('.product-page .product-page__header')
 			?.querySelector('h1')
 			?.textContent?.replace(/,/g, ' ') as string;
+		if (!productItem.productName) {
+			throw new Error(
+				`[DataParserService] Данные на странице не найдены. Некорректный селектор productName`,
+			);
+		}
 
 		productItem.article = Number(
 			document
@@ -22,35 +32,45 @@ export class DataParserService implements IDataParserService {
 				)
 				?.textContent?.replace(/,/g, ' '),
 		);
+		if (!productItem.article) {
+			throw new Error(
+				`[DataParserService] Данные на странице не найдены. Некорректный селектор article`,
+			);
+		}
 
 		productItem.ordersCount = Number(
 			document
-				.querySelector('.product-pagess .product-page__common-info .product-order-quantity')
+				.querySelector('.product-page .product-page__common-info .product-order-quantity')
 				?.textContent?.replace(/\D/g, ''),
 		);
+		if (!productItem.ordersCount) {
+			throw new Error(
+				`[DataParserService] Данные на странице не найдены. Некорректный селектор ordersCount`,
+			);
+		}
 
 		productItem.reviewCount = Number(
 			document
 				.querySelector('.product-page .product-page__common-info .product-review__count-review')
 				?.textContent?.replace(/\D/g, ''),
 		);
+		if (!productItem.reviewCount) {
+			throw new Error(
+				`[DataParserService] Данные на странице не найдены. Некорректный селектор reviewCount`,
+			);
+		}
 
 		productItem.price = Number(
 			document
-				.querySelector('.product-pageыы .price-block__final-pricedd')
+				.querySelector('.product-page .price-block__final-price')
 				?.textContent?.replace(/\D/g, ''),
 		);
+		if (!productItem.price) {
+			throw new Error(
+				`[DataParserService] Данные на странице не найдены. Некорректный селектор price`,
+			);
+		}
 
-		let checker = 0;
-		for (const i of Object.values(productItem)) {
-			if (i) {
-				checker += 1;
-			}
-		}
-		if (checker < Object.values(productItem).length - 1) {
-			throw new Error(`[DataParserService] Данные на странице не найдены. Некорректный селектор`);
-		} else {
-			return productItem;
-		}
+		return productItem;
 	}
 }
