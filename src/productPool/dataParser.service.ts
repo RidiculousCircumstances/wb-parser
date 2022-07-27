@@ -1,13 +1,14 @@
 import { IDataParserService } from './interfaces/dataParser.service.interface';
+import { ILinksParseConfig } from '../config/parseConfig.interface';
 import { IProductItem } from './interfaces/productItem.interface';
 
 export class DataParserService implements IDataParserService {
-	public parseDataFromDetailPage(): IProductItem {
+	public parseDataFromDetailPage(parseConfig: ILinksParseConfig): IProductItem {
 		const productItem: IProductItem = {};
 
 		productItem.brandName = document
-			.querySelector('.product-page .product-page__header')
-			?.querySelector('span')
+			.querySelector(parseConfig.brandName.l1)
+			?.querySelector(parseConfig.brandName.l2)
 			?.textContent?.replace(/,/g, ' ') as string;
 		if (!productItem.brandName) {
 			throw new Error(
@@ -16,8 +17,8 @@ export class DataParserService implements IDataParserService {
 		}
 
 		productItem.productName = document
-			.querySelector('.product-page .product-page__header')
-			?.querySelector('h1')
+			.querySelector(parseConfig.productName.l1)
+			?.querySelector(parseConfig.productName.l2)
 			?.textContent?.replace(/,/g, ' ') as string;
 		if (!productItem.productName) {
 			throw new Error(
@@ -26,11 +27,7 @@ export class DataParserService implements IDataParserService {
 		}
 
 		productItem.article = Number(
-			document
-				.querySelector(
-					'.product-page .product-page__common-info .product-article span:last-of-type',
-				)
-				?.textContent?.replace(/,/g, ' '),
+			document.querySelector(parseConfig.article)?.textContent?.replace(/,/g, ' '),
 		);
 		if (!productItem.article) {
 			throw new Error(
@@ -39,9 +36,7 @@ export class DataParserService implements IDataParserService {
 		}
 
 		productItem.ordersCount = Number(
-			document
-				.querySelector('.product-page .product-page__common-info .product-order-quantity')
-				?.textContent?.replace(/\D/g, ''),
+			document.querySelector(parseConfig.ordersCount)?.textContent?.replace(/\D/g, ''),
 		);
 		if (!productItem.ordersCount) {
 			throw new Error(
@@ -50,20 +45,14 @@ export class DataParserService implements IDataParserService {
 		}
 
 		productItem.reviewCount = Number(
-			document
-				.querySelector('.product-page .product-page__common-info .product-review__count-review')
-				?.textContent?.replace(/\D/g, ''),
+			document.querySelector(parseConfig.reviewCount)?.textContent?.replace(/\D/g, ''),
 		);
 		if (!productItem.reviewCount) {
-			throw new Error(
-				`[DataParserService] Данные на странице не найдены. Некорректный селектор reviewCount`,
-			);
+			productItem.reviewCount = 0;
 		}
 
 		productItem.price = Number(
-			document
-				.querySelector('.product-page .price-block__final-price')
-				?.textContent?.replace(/\D/g, ''),
+			document.querySelector(parseConfig.price)?.textContent?.replace(/\D/g, ''),
 		);
 		if (!productItem.price) {
 			throw new Error(

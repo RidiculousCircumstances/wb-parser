@@ -17,15 +17,15 @@ export class LoggerService implements IloggerService, IProgBar {
 		this.bar = new ProgressBar();
 	}
 
-	log(...args: unknown[]): void {
+	public log(...args: unknown[]): void {
 		this.logger.info(...args);
 	}
 
-	error(...args: unknown[]): void {
+	public error(...args: unknown[]): void {
 		this.logger.error(...args);
 	}
 
-	progBar(count: number, startMessage?: string, finalMessage?: string): void {
+	public progBar(count: number, startMessage?: string, finalMessage?: string): void {
 		this.bar.startProgBar(count, startMessage, finalMessage);
 	}
 }

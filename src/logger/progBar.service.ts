@@ -22,7 +22,11 @@ export class ProgressBar {
 			console.log(`[Progress Bar] ${startMessage}`);
 			this.bar.start(count, 1);
 			this.maxCount = count;
-			this.counter += 1;
+			if (this.maxCount != 1) {
+				this.counter += 1;
+			} else {
+				this.bar.stop();
+			}
 		}
 	}
 }
