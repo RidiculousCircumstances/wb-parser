@@ -9,10 +9,10 @@ import { ConsfigService } from './config/config.service';
 import conf from './config/config.json';
 
 const partPath = join(__dirname, '..', './output', 'part.csv');
-const config = new ConsfigService();
-const parseConfig = config.getConfig();
 
 async function bootstrap(): Promise<void> {
+	const config = new ConsfigService();
+	const parseConfig = config.getConfig();
 	const parser = new ProductItemsService(
 		new LoggerService(),
 		new LinksParserService(parseConfig.iterCount, conf.baseUrl),
