@@ -6,3 +6,4 @@
 /.prettierrc
 /nodemon.json
 *helpers
+*misc.ts

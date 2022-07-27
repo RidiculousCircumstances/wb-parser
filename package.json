@@ -30,12 +30,14 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@types/ramda": "^0.28.15",
     "axios": "^0.27.2",
     "cheerio": "^1.0.0-rc.12",
     "cli-progress": "^3.11.2",
     "config": "^3.3.7",
     "inversify": "^6.0.1",
     "puppeteer": "^15.3.2",
+    "ramda": "^0.28.0",
     "reflect-metadata": "^0.1.13",
     "tslog": "^3.3.3"
   }

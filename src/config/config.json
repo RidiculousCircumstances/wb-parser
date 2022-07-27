@@ -1,6 +1,6 @@
 {
     "baseUrl": "https://www.wildberries.ru/catalog/obuv/muzhskaya/kedy-i-krossovki?sort=popular&page=",
-    "iterCount": "10",
+    "iterCount": 1,
     "pagesSelector": ".product-card",
     "linksSelector": ".catalog-page .product-card .product-card__main",
     "linksAttribute": "href",

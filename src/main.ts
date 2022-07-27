@@ -5,26 +5,23 @@ import { ProductItemsEntity } from './productPool/productItems.entity';
 import { LoggerService } from './logger/logger.service';
 import { LinksParserService } from './productPool/linksParser.service';
 import { DataParserService } from './productPool/dataParser.service';
-import { ConsfigService } from './config/config.service';
-import conf from './config/config.json';
+import config from './config/config.json';
 
-const partPath = join(__dirname, '..', './output', 'part.csv');
+const path = join(__dirname, '..', './output', 'data.csv');
 
 async function bootstrap(): Promise<void> {
-	const config = new ConsfigService();
-	const parseConfig = config.getConfig();
 	const parser = new ProductItemsService(
 		new LoggerService(),
-		new LinksParserService(parseConfig.iterCount, conf.baseUrl),
+		new LinksParserService(config.iterCount, config.baseUrl),
 		new DataParserService(),
-		parseConfig,
+		config,
 	);
 	const productItemsEntity = new ProductItemsEntity();
 	await parser.init();
 	const data = await parser.getDataFromDetailPage();
 	productItemsEntity.addItem(data);
 	const output = productItemsEntity.getData();
-	await promises.writeFile(partPath, output);
+	await promises.writeFile(path, output);
 }
 
 bootstrap();

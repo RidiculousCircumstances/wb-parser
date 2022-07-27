@@ -1,52 +1,40 @@
+import R from 'ramda';
 import { IProductItem } from './interfaces/productItem.interface';
 
 export class ProductItemsEntity {
-	private brandName: string[] = [];
-	private productName: string[] = [];
-	private article: number[] = [];
-	private ordersCount: number[] = [];
-	private reviewCount: number[] = [];
-	private price: number[] = [];
+	private items: any = {
+		brandName: [],
+		productName: [],
+		article: [],
+		ordersCount: [],
+		reviewCount: [],
+		price: [],
+	};
 
-	public addItem(items: IProductItem[]): void {
-		for (const i of items) {
-			this.brandName.push(i.brandName as string);
-			this.productName.push(i.productName as string);
-			this.article.push(i.article as number);
-			this.ordersCount.push(i.ordersCount as number);
-			this.reviewCount.push(i.reviewCount as number);
-			this.price.push(i.price as number);
+	public addItem(items: any): void {
+		for (const item in items) {
+			for (const prop in items[item]) {
+				for (const transfProp in this.items) {
+					if (transfProp == prop) {
+						this.items[transfProp].push(items[item][prop]);
+					}
+				}
+			}
 		}
 	}
 
 	public getData(): string {
-		const csvRows = [];
-		const headers = Object.keys(this);
-		csvRows.push(headers);
+		let csvRows = [];
+		const tempArr = [];
+		const headers = [];
 
-		for (let i = 0; i < this.checkLength(); i++) {
-			csvRows.push(
-				Object.values([
-					this.brandName[i],
-					this.productName[i],
-					this.article[i],
-					this.ordersCount[i],
-					this.reviewCount[i],
-					this.price[i],
-				]),
-			);
+		for (const item in this.items) {
+			headers.push(item);
+			tempArr.push(this.items[item]);
 		}
-		console.log(this.checkLength());
+		csvRows.push(R.transpose(tempArr));
+		csvRows = csvRows.flat();
+		csvRows.unshift(headers);
 		return csvRows.join('\n');
-	}
-
-	private checkLength(): number {
-		const propsCount = Object.keys(this).length;
-		let propsLengthSum = 0;
-		for (let i = 0; i < propsCount; i++) {
-			propsLengthSum += Object.values(this)[i].length;
-		}
-		const propsLenghtAvr = Math.ceil(propsLengthSum / propsCount);
-		return propsLenghtAvr;
 	}
 }

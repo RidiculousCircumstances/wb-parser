@@ -33,7 +33,7 @@ export class ProductItemsService implements IProductItemsService {
 					waitUntil: 'networkidle2',
 					timeout: 300000,
 				});
-				await this.page.waitForSelector(this.parseConfig.brandName.l1);
+				await this.page.waitForSelector(this.parseConfig.price);
 				const content = await this.page.evaluate(
 					this.dataParser.parseDataFromDetailPage,
 					this.parseConfig,
@@ -63,7 +63,7 @@ export class ProductItemsService implements IProductItemsService {
 					waitUntil: 'networkidle2',
 					timeout: 300000,
 				});
-				await this.page.waitForSelector(this.parseConfig.pagesSelector);
+				await this.page.waitForSelector(this.parseConfig.linksSelector);
 				const content = await this.page.evaluate(
 					this.linksParser.parseLinksFromBasePages,
 					this.parseConfig,
